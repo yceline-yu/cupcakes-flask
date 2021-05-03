@@ -1,12 +1,14 @@
 {% extends 'base.html' %}
 {% block content %}
-<ul class="list-group" name="cupcakes">
+<h3>Cupcake List</h3>
+<ul class="cupcake-list" name="cupcakes" id="cupcake-list">
 
 </ul>
 
-<form class="form">
+<form class="form" id='cupcake-form'>
+    <h4>Add a Cupcake</h4>
     <label for=“flavor”>Provide a Flavor:</label>
-    <input type="text" name="flavor">
+    <input type="text" name="flavor" id="flavor">
     <br>
     <label for=“size”>Choose a Size:</label>
     <select id=“size” name=“size”>
@@ -30,9 +32,9 @@
     </select>
     <br>
     <label for=“image”>Provide Image URL:</label>
-    <input type="url" name="image">
+    <input type="url" name="image" id="image">
     <br>
-    <button class="btn btn-primary" type="submit">ENTER</button>
+    <button class="btn btn-primary" id="cupcake-submit" type="submit">ENTER</button>
 </form>
 
 
