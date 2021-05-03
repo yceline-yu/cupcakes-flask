@@ -33,3 +33,12 @@ def get_cupcake_data(cupcake_id):
     serialized = cupcake.serialize()
     
     return jsonify(cupcake=serialized)
+
+@app.route('/api/cupcakes', methods=["POST"])
+def add_new_cupcake():
+    """add new cupcake to DB"""
+    
+    cupcake = Cupcake()
+    serialized = cupcake.serialize()
+
+    return jsonify(cupcake=serialized)
