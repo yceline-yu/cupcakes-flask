@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{% block content %}
+<ul class="list-group" name="cupcakes">
+
+</ul>
+
+<form class="form">
+    <label for=“flavor”>Provide a Flavor:</label>
+    <input type="text" name="flavor">
+    <br>
+    <label for=“size”>Choose a Size:</label>
+    <select id=“size” name=“size”>
+        <option value=“small”>small</option>
+        <option value=“medium”>medium</option>
+        <option value=“large”>large</option>
+    </select>
+    <br>
+    <label for=“rating”>Choose a Rating:</label>
+    <select id=“rating” name=“rating”>
+        <option value=“1”>1</option>
+        <option value=“2”>2</option>
+        <option value=“3”>3</option>
+        <option value=“4”>4</option>
+        <option value=“5”>5</option>
+        <option value=“6”>6</option>
+        <option value=“7”>7</option>
+        <option value=“8”>8</option>
+        <option value=“9”>9</option>
+        <option value=“10”>10</option>
+    </select>
+    <br>
+    <label for=“image”>Provide Image URL:</label>
+    <input type="url" name="image">
+    <br>
+    <button class="btn btn-primary" type="submit">ENTER</button>
+</form>
+
+
+
+{% endblock %}
