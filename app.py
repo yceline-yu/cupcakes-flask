@@ -19,7 +19,9 @@ connect_db(app)
 
 @app.route('/api/cupcakes')
 def get_cupcake_list():
-    """get data of all cupcakes, return JSON"""
+    """get data of all cupcakes, return JSON
+    {cupcakes: [{id, flavor, size, rating, image}, ...]}
+    """
 
     cupcakes = Cupcake.query.all()
     serialized = [c.serialize() for c in cupcakes]
@@ -29,7 +31,9 @@ def get_cupcake_list():
 
 @app.route('/api/cupcakes/<int:cupcake_id>')
 def get_cupcake_data(cupcake_id):
-    """get data on a single cupcake, return JSON"""
+    """get data on a single cupcake, return JSON
+    ==> {cupcake: {id, flavor, size, rating, image}}
+    """
 
     cupcake = Cupcake.query.get_or_404(cupcake_id)
     serialized = cupcake.serialize()
@@ -39,7 +43,9 @@ def get_cupcake_data(cupcake_id):
 
 @app.route('/api/cupcakes', methods=["POST"])
 def add_new_cupcake():
-    """add new cupcake to DB, return JSON"""
+    """add new cupcake to DB, return JSON
+    ==> {cupcake: {id, flavor, size, rating, image}}
+    """
 
     flavor = request.json["flavor"]
     size = request.json["size"]
@@ -61,7 +67,9 @@ def add_new_cupcake():
 
 @app.route('/api/cupcakes/<int:cupcake_id>', methods=["PATCH"])
 def edit_cupcake_data(cupcake_id):
-    """edit cupcake and send to DB, return JSON
+    """edit existing cupcake send edits in JSON
+    ==> {cupcake: {flavor, size, rating, image}}, 
+    return JSON
     ==> {cupcake: {id, flavor, size, rating, image}}
     """
 
@@ -72,10 +80,10 @@ def edit_cupcake_data(cupcake_id):
     rating = request.json["rating"]
     image = request.json["image"] if request.json["image"] else None
 
-    cupcake.flavor = flavor if flavor else cupcake.flavor
-    cupcake.size = size if size else cupcake.size
-    cupcake.rating = rating if rating else cupcake.rating
-    cupcake.image = image if image else cupcake.image
+    cupcake.flavor = flavor
+    cupcake.size = size
+    cupcake.rating = rating
+    cupcake.image = image
 
     db.session.commit()
 
