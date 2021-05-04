@@ -1,7 +1,7 @@
 /* retrieve cupcake info from DB */
 
 BASE_API_URL = "http://localhost:5000/api/cupcakes"
-
+/* turn cupcake object into html list item */
 function generateCupcakeMarkup(cupcake) {
   console.log("markup running!")
   console.log("cupcake.id ==>", cupcake.id)
@@ -14,7 +14,9 @@ function generateCupcakeMarkup(cupcake) {
       `);
 }
 
+/* send new cupcake to back end (which adds to DB) and add to cupcake list */
 async function addCupcake({ flavor, size, rating, image }) {
+  console.log("ADD CC() flavor ==>",flavor)
   const response = await axios({
     url: `${BASE_API_URL}`,
     method: "POST",
@@ -25,8 +27,14 @@ async function addCupcake({ flavor, size, rating, image }) {
       image
     }
   });
+  // could split this into two functions?
+  console.log("addCupcake() REST ==>", response)
+  let newCupcake = generateCupcakeMarkup(response.data.cupcake)
+  $('#cupcake-list').append(newCupcake)
+
 }
 
+/* get all cupcakes from DB and append to cupcake list */
 async function getCupcakeInfo() {
   // evt.preventDefault();
   let response = await axios.get(BASE_API_URL);
@@ -40,17 +48,22 @@ async function getCupcakeInfo() {
     $('#cupcake-list').append(cupcakeMarkup);
   }
 }
-
+/* retrieves form data and sends form info to back end  */
 async function addNewCupcake(evt) {
   evt.preventDefault();
   console.log("addnewuppie)")
-  let $flavor = $('#flavor').val();
-  let $size = $('#size').val();
+  let $flavor = $("#flavor").val()
+  let $size = $("#size").val();
   let $rating = $('#rating').val();
   let $image = $('#image').val();
-  let newCupcake = await addCupcake({ $flavor, $size, $rating, $image });
+  await addCupcake({ "flavor":$flavor,
+                                       "size":$size, 
+                                       "rating":$rating, 
+                                       "image":$image 
+                                      });
 }
 
+// event listener on new cupcake submit button 
 $('#cupcake-form').on("submit", addNewCupcake);
-
+// populates page with cupcake list
 getCupcakeInfo();
